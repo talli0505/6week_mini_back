@@ -12,24 +12,24 @@ class PostsController {
 
   // 상세 조회
   getPostById = async (req, res, next) => {
-    try{
+    try {
       const { postId } = req.params;
       const post = await this.postService.findPostById(postId);
-      res.status(200).json({ post : post });
-    } catch(err) {
-      res.status(400).json({ err : err.message });
+      res.status(200).json({ post: post });
+    } catch (err) {
+      res.status(400).json({ err: err.message });
     }
   };
 
   // 게시글 생성
   createPost = async (req, res, next) => {
     const { title, content } = req.body;
-    const { userId, nickname } = res.locals.user
+    const { userId, nickname } = res.locals.user;
     const createPostData = await this.postService.createPost(
       userId,
       nickname,
       title,
-      content,
+      content
     );
     res.status(201).json({ data: createPostData });
   };
@@ -39,7 +39,7 @@ class PostsController {
     try {
       const { postId } = req.params;
       const { title, content } = req.body;
-      const { nickname } = res.locals.user; 
+      const { nickname } = res.locals.user;
 
       const updatePost = await this.postService.updatePost(
         postId,
@@ -49,10 +49,9 @@ class PostsController {
       );
 
       res.status(200).json({ data: updatePost });
-    } catch(err) {
-      res.status(400).json({ err : err.message });
+    } catch (err) {
+      res.status(400).json({ err: err.message });
     }
-    
   };
 
   // 게시글 삭제
@@ -60,12 +59,12 @@ class PostsController {
     try {
       const { postId } = req.params;
       const { nickname } = res.locals.user;
-  
+
       const deletePost = await this.postService.deletePost(postId, nickname);
-  
+
       res.status(200).json({ data: deletePost });
-    }catch(err) {
-      res.status(400).json({ err : err.message });
+    } catch (err) {
+      res.status(400).json({ err: err.message });
     }
   };
 }
