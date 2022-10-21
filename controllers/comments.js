@@ -13,6 +13,7 @@ class Commentscontroller {
       const { postId } = req.params;
       const { comment } = req.body;
       const { userId } = res.locals.user;
+
       const createcomment = await this.commentsservice.createComment(
         postId,
         comment,
