@@ -16,29 +16,29 @@ class PostRepository {
   };
 
   // 게시글 생성
-  createPost = async (nickname, title, content) => {
+  createPost = async (userId, nickname, title, content) => {
     const createPostData = await Posts.create({
+      userId,
       nickname,
       title,
-      content,
+      content
     });
-
     return createPostData;
   };
 
   // 게시글 수정
-  updatePost = async (postId, title, content) => {
+  updatePost = async (postId, nickname, title, content) => {
     const updatePostData = await Posts.update(
       { title, content },
-      { where: { postId } }
+      { where: { postId, nickname } }
     );
 
     return updatePostData;
   };
 
   // 게시글 삭제
-  deletePost = async (postId) => {
-    const updatePostData = await Posts.destroy({ where: { postId } });
+  deletePost = async (postId, nickname) => {
+    const updatePostData = await Posts.destroy({ where: { postId, nickname } });
 
     return updatePostData;
   };

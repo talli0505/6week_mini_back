@@ -12,46 +12,61 @@ class PostsController {
 
   // 상세 조회
   getPostById = async (req, res, next) => {
-    const { postId } = req.params;
-    const post = await this.postService.findPostById(postId);
-
-    res.status(200).json({ data: post });
+    try{
+      const { postId } = req.params;
+      const post = await this.postService.findPostById(postId);
+      res.status(200).json({ post : post });
+    } catch(err) {
+      res.status(400).json({ err : err.message });
+    }
   };
 
   // 게시글 생성
   createPost = async (req, res, next) => {
-    const { nickname, password, title, content } = req.body;
+    const { title, content } = req.body;
+    const { userId, nickname } = res.locals.user
     const createPostData = await this.postService.createPost(
+      userId,
       nickname,
-      password,
       title,
-      content
+      content,
     );
-
     res.status(201).json({ data: createPostData });
   };
 
   // 게시글 수정
   updatePost = async (req, res, next) => {
-    const { postId } = req.params;
-    const { title, content } = req.body;
+    try {
+      const { postId } = req.params;
+      const { title, content } = req.body;
+      const { nickname } = res.locals.user; 
 
-    const updatePost = await this.postService.updatePost(
-      postId,
-      title,
-      content
-    );
+      const updatePost = await this.postService.updatePost(
+        postId,
+        nickname,
+        title,
+        content
+      );
 
-    res.status(200).json({ data: updatePost });
+      res.status(200).json({ data: updatePost });
+    } catch(err) {
+      res.status(400).json({ err : err.message });
+    }
+    
   };
 
   // 게시글 삭제
   deletePost = async (req, res, next) => {
-    const { postId } = req.params;
-
-    const deletePost = await this.postService.deletePost(postId);
-
-    res.status(200).json({ data: deletePost });
+    try {
+      const { postId } = req.params;
+      const { nickname } = res.locals.user;
+  
+      const deletePost = await this.postService.deletePost(postId, nickname);
+  
+      res.status(200).json({ data: deletePost });
+    }catch(err) {
+      res.status(400).json({ err : err.message });
+    }
   };
 }
 

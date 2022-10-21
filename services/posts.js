@@ -4,90 +4,57 @@ class PostService {
   postRepository = new PostRepository();
 
   // 게시글 목록
-  findAllPost = async () => {
-    const allPost = await this.postRepository.findAllPost();
+  findAllPost = async () => { 
+    const allPost = await this.postRepository.findAllPost({});
 
-    allPost.sort((a, b) => {
+    allPost.sort((a, b) => { 
       return b.createdAt - a.createdAt;
     });
-
-    return allPost.map((post) => {
-      return {
-        postId: post.postId,
-        nickname: post.nickname,
-        title: post.title,
-        createdAt: post.createdAt,
-        updatedAt: post.updatedAt,
-      };
-    });
+    return allPost
   };
 
   // 특정 게시글 조회
   findPostById = async (postId) => {
-    const findPost = await this.postRepository.findPostById(postId);
+    try{
+      const findPost = await this.postRepository.findPostById(postId);
 
-    return {
-      postId: findPost.postId,
-      nickname: findPost.nickname,
-      title: findPost.title,
-      content: findPost.content,
-      createdAt: findPost.createdAt,
-      updatedAt: findPost.updatedAt,
-    };
+      return findPost;
+    } catch(Err) {
+      throw new Error("게시물이 더 이상 존재하지 않습니다.");
+    }    
   };
 
   // 게시글 생성
-  createPost = async (nickname, title, content) => {
+  createPost = async (userId, nickname, title, content) => {
     const createPostData = await this.postRepository.createPost(
+      userId,
       nickname,
       title,
       content
     );
-
-    return {
-      postId: createPostData.null,
-      nickname: createPostData.nickname,
-      title: createPostData.title,
-      content: createPostData.content,
-      createdAt: createPostData.createdAt,
-      updatedAt: createPostData.updatedAt,
-    };
+    return createPostData
+    
   };
 
   // 게시글 수정
-  updatePost = async (postId, title, content) => {
-    const findPost = await this.postRepository.findPostById(postId);
-    if (!findPost) throw new Error("Post doesn't exist");
+  updatePost = async (postId, nickname, title, content) => {
 
-    await this.postRepository.updatePost(postId, title, content);
-
-    const updatePost = await this.postRepository.findPostById(postId);
-
-    return {
-      postId: updatePost.postId,
-      nickname: updatePost.nickname,
-      title: updatePost.title,
-      content: updatePost.content,
-      createdAt: updatePost.createdAt,
-      updatedAt: updatePost.updatedAt,
-    };
+    const [updatePost] = await this.postRepository.updatePost(postId, nickname, title, content);
+    if(updatePost) {
+      return { 'msg' : '수정완료' };
+    }else {
+      throw new Error('게시글이 없거나 수정 불가')
+    }
   };
 
   // 게시글 삭제
-  deletePost = async (postId) => {
-    const findPost = await this.postRepository.findPostById(postId);
-    if (!findPost) throw new Error("Post doesn't exist");
-
-    await this.postRepository.deletePost(postId);
-
-    return {
-      postId: findPost.postId,
-      nickname: findPost.nickname,
-      title: findPost.title,
-      content: findPost.content,
-      createdAt: findPost.createdAt,
-      updatedAt: findPost.updatedAt,
-    };
+  deletePost = async (postId, nickname) => {
+    const deletePost =  await this.postRepository.deletePost(postId, nickname);
+    if (!deletePost) {
+      throw new Error('게시글이 없거나 삭제 불가')
+    } else {
+      return { 'msg' : '삭제완료' };
+    }
   };
 }
 
