@@ -3,7 +3,7 @@
   "info": {
     "version": "3242.123123.324234 저세상버전",
     "title": "2조 쌉 이지~",
-    "description": "여러분들을 위한 API 문서입니다."
+    "description": "은비님 은민님 여러분들을 위한 API 문서입니다."
   },
   "host": "localhost:4000",
   "basePath": "/",
@@ -25,7 +25,7 @@
       "description": ""
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["http", "비밀의방"],
   "securityDefinitions": {
     "apiKeyAuth": {
       "type": "apiKey",
@@ -196,7 +196,7 @@
     },
     "/comments/{commentId}": {
       "put": {
-        "description": "코멘트 수정 && 부여한 토큰값을 header로 받아 유효성 검사를 한 이후 res.locals.user로 서버에서 가공하여 사용합니다.",
+        "description": "코멘트 수정 && 부여한 토큰값을 클라이언트로부터 header로 받아 유효성 검사를 한 이후 res.locals.user로 서버에서 가공하여 사용합니다.",
         "tags": ["댓글API"],
         "parameters": [
           {
@@ -329,21 +329,34 @@
     "posts": {
       "type": "object",
       "properties": {
-        "father": {
-          "type": "string",
-          "example": "Simon Doe"
+        "postId": {
+          "type": "integer",
+          "example": "1"
         },
-        "mother": {
+        "userId": {
+          "type": "integer",
+          "example": "1"
+        },
+        "title": {
           "type": "string",
-          "example": "Marie Doe"
+          "example": "title"
+        },
+        "content": {
+          "type": "string",
+          "example": "hello"
+        },
+        "nickname": {
+          "type": "string",
+          "example": "앙"
         }
-      }
+      },
+      "required": ["title", "content"]
     },
     "User": {
       "type": "object",
       "properties": {
         "userId": {
-          "type": "int",
+          "type": "integer",
           "example": "auto increment"
         },
         "email": {
