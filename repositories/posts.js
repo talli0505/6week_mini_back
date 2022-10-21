@@ -1,4 +1,4 @@
-const { Posts } = require('../models');
+const { Posts } = require("../models");
 
 class PostRepository {
   // 게시글 조회
