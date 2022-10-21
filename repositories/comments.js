@@ -1,5 +1,5 @@
-const { Comments } = require('../models');
-const { Sequelize } = require('../models');
+const { Comments } = require("../models");
+const { Sequelize } = require("../models");
 const { Op } = Sequelize;
 
 class Commentsrepository {
@@ -25,7 +25,10 @@ class Commentsrepository {
 
   Commentedit = async (commentId, comment, userId) => {
     try {
-      const updateCount = await Comments.update({ comment }, { where: { commentId, userId } });
+      const updateCount = await Comments.update(
+        { comment },
+        { where: { commentId, userId } }
+      );
 
       return updateCount;
     } catch (error) {
