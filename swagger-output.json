@@ -1,0 +1,387 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "3242.123123.324234 저세상버전",
+    "title": "2조 쌉 이지~",
+    "description": "여러분들을 위한 API 문서입니다."
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "회원 가입API",
+      "description": "회원가입이요"
+    },
+    {
+      "name": "로그인API",
+      "description": ""
+    },
+    {
+      "name": "게시물API",
+      "description": ""
+    },
+    {
+      "name": "댓글API",
+      "description": ""
+    }
+  ],
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "any description..."
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/posts/": {
+      "get": {
+        "description": "모든 게시물 목록 불러오기",
+        "tags": ["게시물API"],
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "description": "게시물 생성하기",
+        "tags": ["게시물API"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "제목"
+                },
+                "content": {
+                  "example": "내용"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/posts/{postId}": {
+      "get": {
+        "description": "게시물 상세보기",
+        "tags": ["게시물API"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "description": "게시물 수정하기",
+        "tags": ["게시물API"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "수정할 제목"
+                },
+                "content": {
+                  "example": "수정할 내용"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "description": "게시물 삭제하기",
+        "tags": ["게시물API"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/comments/{postId}": {
+      "get": {
+        "description": "코멘트 불러오기",
+        "tags": ["댓글API"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "description": "코멘트 작성입니다. && 부여한 토큰값을 header로 받아 유효성 검사를 한 이후 res.locals.user로 서버에서 가공하여 사용합니다.",
+        "tags": ["댓글API"],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "comment": {
+                  "example": "코멘트쓰셈"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        }
+      }
+    },
+    "/comments/{commentId}": {
+      "put": {
+        "description": "코멘트 수정 && 부여한 토큰값을 header로 받아 유효성 검사를 한 이후 res.locals.user로 서버에서 가공하여 사용합니다.",
+        "tags": ["댓글API"],
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "comment": {
+                  "example": "수정할 코멘트 작성하세요."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "412": {
+            "description": "Precondition Failed"
+          }
+        }
+      },
+      "delete": {
+        "description": "코멘트 삭제 입니다. && 부여한 토큰값을 header로 받아 유효성 검사를 한 이후 res.locals.user로 서버에서 가공하여 사용합니다.",
+        "tags": ["댓글API"],
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "로그인 하기~",
+        "tags": ["로그인API"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "아이디"
+                },
+                "password": {
+                  "example": "패뜨워드"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/signup/": {
+      "post": {
+        "description": "회원가입 기능입니더~",
+        "tags": ["회원 가입API"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "email"
+                },
+                "nickname": {
+                  "example": "nickname"
+                },
+                "password": {
+                  "example": "패뜨워드"
+                },
+                "confirm": {
+                  "example": "패뜨워드 확인~"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "posts": {
+      "type": "object",
+      "properties": {
+        "father": {
+          "type": "string",
+          "example": "Simon Doe"
+        },
+        "mother": {
+          "type": "string",
+          "example": "Marie Doe"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "int",
+          "example": "auto increment"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@naver.com"
+        },
+        "nickname": {
+          "type": "string",
+          "example": "aaa"
+        },
+        "password": {
+          "type": "string",
+          "example": "qwe1111!"
+        }
+      },
+      "required": ["email", "nickname", "password"]
+    },
+    "comments": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "example": "auto increment"
+        },
+        "postId": {
+          "type": "integer",
+          "example": "1"
+        },
+        "userId": {
+          "type": "string",
+          "example": "baby"
+        },
+        "comment": {
+          "type": "string",
+          "example": "홀리몰리짱짱"
+        }
+      },
+      "required": ["commentId", "postId", "userId", "comment"]
+    }
+  }
+}
