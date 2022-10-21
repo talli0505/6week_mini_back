@@ -1,3 +1,4 @@
+
 node_modules/
 config/
 # Created by https://www.toptal.com/developers/gitignore/api/node
@@ -143,4 +144,6 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+
 # End of https://www.toptal.com/developers/gitignore/api/node
+
