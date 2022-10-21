@@ -10,6 +10,9 @@ class Commentscontroller {
   commentsservice = new Comments();
   createComment = async (req, res, next) => {
     try {
+      if (res.locals.user === undefined) {
+        return res.status(401).send("로그인이 필요합니다.");
+      }
       const { postId } = req.params;
       const { comment } = req.body;
       const { userId } = res.locals.user;
@@ -19,7 +22,7 @@ class Commentscontroller {
         comment,
         userId
       );
-      res.status(201).json({ createcomment });
+      res.json({ createcomment });
     } catch (error) {
       return res.status(400).send({
         errorMessage: error.name + "=" + error.errorMessage,
@@ -32,10 +35,13 @@ class Commentscontroller {
       const { postId } = req.params;
       const comments = await this.commentsservice.Commentlist(postId);
       if (comments === null) {
-        return res.json({ message: "없는 게시물 이거나 댓글이 없습니다." });
+        return res
+          .status(400)
+          .json({ message: "없는 게시물 이거나 댓글이 없습니다." });
       }
       const comment = comments.sort((a, b) => b.createdAt - a.createdAt);
-      return res.status(200).json({ data: comment });
+      console.log(comment);
+      return res.status(200).json({ message: comment });
     } catch (error) {
       return res.status(400).send({
         errorMessage: error.name + "=" + error.errorMessage,
@@ -45,6 +51,9 @@ class Commentscontroller {
 
   Commentedit = async (req, res, next) => {
     try {
+      if (res.locals.user === undefined) {
+        return res.status(401).send("로그인이 필요합니다.");
+      }
       const resultSchema = commentSchema.validate(req.body);
       const { commentId } = req.params;
       const { comment } = resultSchema.value;
@@ -64,6 +73,9 @@ class Commentscontroller {
 
   Commentdelete = async (req, res, next) => {
     try {
+      if (res.locals.user === undefined) {
+        return res.status(401).send("로그인이 필요합니다.");
+      }
       const { commentId } = req.params;
       const { userId } = res.locals.user;
       const Commentdelete = await this.commentsservice.Commentdelete(
