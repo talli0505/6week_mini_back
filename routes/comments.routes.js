@@ -5,12 +5,12 @@ Commentscontroller = require("../controllers/comments");
 commentscontroller = new Commentscontroller();
 
 //코멘트 작성
-router.post("/:postId", commentscontroller.createComment);
+router.post("/:postId", authMiddleware, commentscontroller.createComment);
 //코멘트 리스트
-router.get("/:postId", commentscontroller.Commentlist);
+router.get("/:postId", authMiddleware, commentscontroller.Commentlist);
 //코멘트 수정
-router.put("/:commentId", commentscontroller.Commentedit);
+router.put("/:commentId", authMiddleware, commentscontroller.Commentedit);
 //코멘트 삭제
-router.delete("/:commentId", commentscontroller.Commentdelete);
+router.delete("/:commentId", authMiddleware, commentscontroller.Commentdelete);
 
 module.exports = router;
