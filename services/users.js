@@ -34,6 +34,7 @@ class UserService {
     if (loginData === null) return loginData;
     return {
       userId: loginData.userId,
+      nickname: loginData.nickname,
       email: loginData.email,
       password: loginData.password,
     };

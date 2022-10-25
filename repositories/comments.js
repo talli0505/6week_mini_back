@@ -6,7 +6,10 @@ class Commentsrepository {
   createComment = async (postId, comment, userId) => {
     try {
       const createcomment = await Comments.create({ postId, userId, comment });
-      return createcomment;
+      const findecomments = await Comments.findOne({
+        where: { userId: createcomment.userId },
+      });
+      return findecomments;
     } catch (error) {
       return `${error.name}=${error.errorMessage}`;
     }

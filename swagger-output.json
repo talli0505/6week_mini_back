@@ -294,7 +294,7 @@
         }
       }
     },
-    "/signup/": {
+    "/users/": {
       "post": {
         "description": "회원가입 기능입니더~",
         "tags": ["회원 가입API"],

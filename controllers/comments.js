@@ -17,12 +17,12 @@ class Commentscontroller {
       const { comment } = req.body;
       const { userId } = res.locals.user;
 
-      const createcomment = await this.commentsservice.createComment(
+      const createcomments = await this.commentsservice.createComment(
         postId,
         comment,
         userId
       );
-      res.json({ createcomment });
+      res.json({ createcomments });
     } catch (error) {
       return res.status(400).send({
         errorMessage: error.name + "=" + error.errorMessage,
