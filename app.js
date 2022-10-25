@@ -7,6 +7,7 @@ const swaggerFile = require("./swagger-output");
 dotenv.config();
 const app = express();
 app.use(express.json());
+
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 //cors 미들웨어 사용
