@@ -69,7 +69,7 @@ class PostsController {
       );
 
       // 성공 : 선언한 값을 보내기, 실패 : 에러 메세지 보내기
-      res.status(200).json({ data: updatePost });
+      res.status(200).json({ data: updatePost }); 
     } catch (err) {
       res.status(400).json({ err: err.message });
     }
