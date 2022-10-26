@@ -77,9 +77,9 @@ class UsersController {
 
       
     return res.json({ // accessToken body로 전달
-      token: accessToken
-      }),userNickname: login.nickname;
-    
+      token: accessToken,
+      userNickname : login.nickname,
+      });
   };
 
   logout = async (req, res) => {

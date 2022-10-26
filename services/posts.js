@@ -50,7 +50,10 @@ class PostService {
 
     // 있으면 수정완료, 없으면 Error
     if(updatePost) {
-      return { 'msg' : '수정완료' };
+      return { 'msg' : '수정완료', 
+      nickname : nickname, 
+      title : title, 
+      content : content }; 
     }else {
       throw new Error('게시글이 없거나 수정 불가')
     }
