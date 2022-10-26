@@ -25,7 +25,6 @@ class Commentsservice {
         comment,
         userId
       );
-      console.log(createcomment);
       return createcomment;
     } catch (error) {
       return error.name + "=" + error.errorMessage;
