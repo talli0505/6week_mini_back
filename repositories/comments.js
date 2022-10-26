@@ -1,4 +1,4 @@
-const { Comments, User } = require("../models"); 
+const { Comments, User } = require("../models");
 const { Sequelize } = require("../models");
 const { Op } = Sequelize;
 
