@@ -1,6 +1,5 @@
 const UserService = require("../services/users");
 const jwt = require("jsonwebtoken");
-const Joi = require("joi");
 const MUST_NICKNAME = /^[a-zA-Z0-9]{3,}$/;
 const STRONG_PASSWORD =
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/;
@@ -60,13 +59,32 @@ class UsersController {
         .status(404)
         .send({ errorMessage: "가입 정보를 찾을 수 없습니다" });
 
-    return res.json({
-      token: jwt.sign({ userId: login.userId }, process.env.JWT_SECRET_KEY, {
-        expiresIn: "30m",
-      }),
-      userNickname: login.nickname,
-    });
+    // 유저 정보가 확인되면 토큰 2개 발급
+    const accessToken  = jwt.sign(
+      { userId: login.userId }, 
+      process.env.JWT_SECRET_KEY, 
+      {expiresIn: "15s"}
+      );
+
+    const refreshToken  = jwt.sign(
+      { userId: login.userId }, 
+      process.env.JWT_SECRET_KEY, 
+      {expiresIn: "1d"}
+      );
+
+    // refreshToken 쿠키에 전달
+    console.log(res.cookie('refreshToken', refreshToken));
+
+      
+    return res.json({ // accessToken body로 전달
+      token: accessToken
+      }),userNickname: login.nickname;
+    
   };
+
+  logout = async (req, res) => {
+    
+  }
 }
 
 module.exports = UsersController;
