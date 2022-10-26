@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require("joi"); 
 const commentsrepository = require("../repositories/comments");
 const RE_COMMENT = /^[\s\S]{1,255}$/; // 댓글 정규 표현식
 
