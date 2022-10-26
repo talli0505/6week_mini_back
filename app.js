@@ -1,12 +1,14 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const router = require("./routes");
+const cookieParser = require("cookie-parser");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("./swagger-output");
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 //cors 미들웨어 사용
