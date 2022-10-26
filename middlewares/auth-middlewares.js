@@ -3,6 +3,7 @@ const { User } = require("../models");
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
+
   const { refreshToken } = req.cookies;
   
   const [tokenType, tokenValue] = authorization.split(" ");
@@ -31,6 +32,7 @@ module.exports = (req, res, next) => {
       next();
     }) 
   }
+
 };
 
 // RefreshToken 유효성 검증
@@ -42,4 +44,5 @@ function validateRefreshToken(refreshToken) {
     return false;
   }
 }
+
 
