@@ -90,7 +90,7 @@ class UsersController {
     const accessToken  = jwt.sign(
       { userId: login.userId }, 
       process.env.JWT_SECRET_KEY, 
-      {expiresIn: "15s"}
+      {expiresIn: "30m"}
       );
     
     // refreshToken 발급
