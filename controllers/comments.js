@@ -25,13 +25,14 @@ class Commentscontroller {
       const { comment } = req.body;
 
       // 로그인한 계정 userId 받기
-      const { userId } = res.locals.user;
+      const { userId, nickname } = res.locals.user;
 
       // commentsservice에 있는 createComment 함수를 받아와서 선언
       const createcomments = await this.commentsservice.createComment(
         postId,
         comment,
-        userId
+        userId,
+        nickname
       );
 
       // 성공 : 선언한 값을 보내기, 실패 : 에러 메세지 보내기

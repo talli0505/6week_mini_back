@@ -4,18 +4,18 @@ const { Op } = Sequelize;
 
 class Commentsrepository {
   // 댓글 생성하는 함수
-  createComment = async (postId, comment, userId) => {
+  createComment = async (postId, comment, userId, nickname) => {
     try {
       // create로 sql 안에 댓글을 생성
-      const createcomment = await Comments.create({ postId, userId, comment });
-      const findecomments = await Comments.findOne({
-        where: { userId: createcomment.userId },
-      });
-      const findeusers = await User.findOne({
-        where: { userId: createcomment.userId },
-      });
+      const createcomment = await Comments.create({ postId, userId, comment, nickname });
+      // const findecomments = await Comments.findOne({
+      //   where: { userId: createcomment.userId },
+      // });
+      // const findeusers = await User.findOne({
+      //   where: { userId: createcomment.userId },
+      // });
 
-      return { create: findecomments, nickname: findeusers.nickname };
+      return { create: createcomment };
     } catch (error) {
       return `${error.name}=${error.errorMessage}`;
     }
