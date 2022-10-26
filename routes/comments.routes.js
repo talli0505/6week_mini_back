@@ -9,7 +9,7 @@ router.post("/:postId", authMiddleware, commentscontroller.createComment);
 //코멘트 리스트
 router.get("/:postId", authMiddleware, commentscontroller.Commentlist);
 //코멘트 수정
-router.put("/:commentId", authMiddleware, commentscontroller.Commentedit);
+router.patch("/:commentId", authMiddleware, commentscontroller.Commentedit);
 //코멘트 삭제
 router.delete("/:commentId", authMiddleware, commentscontroller.Commentdelete);
 

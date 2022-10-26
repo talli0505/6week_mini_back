@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       commentId: {
         primaryKey: true,
         type: DataTypes.INTEGER,
+        autoIncrement: true,
       },
       postId: {
         required: true,
@@ -25,10 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         required: true,
         type: DataTypes.INTEGER,
-      },
-      nickname : {
-        required : true,
-        type : DataTypes.STRING,
       },
       comment: {
         required: true,
