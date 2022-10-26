@@ -40,7 +40,7 @@ class PostRepository {
       { title, content },
       { where: { postId, nickname } }
     );
-
+    
     return updatePostData;
   };
 
