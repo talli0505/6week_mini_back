@@ -8,12 +8,12 @@ class Commentsrepository {
     try {
       // create로 sql 안에 댓글을 생성
       const createcomment = await Comments.create({ postId, userId, comment, nickname });
-      const findecomments = await Comments.findOne({
-        where: { userId: createcomment.userId },
-      });
-      const findeusers = await User.findOne({
-        where: { userId: createcomment.userId },
-      });
+      // const findecomments = await Comments.findOne({
+      //   where: { userId: createcomment.userId },
+      // });
+      // const findeusers = await User.findOne({
+      //   where: { userId: createcomment.userId },
+      // });
 
       return { create: createcomment };
     } catch (error) {
