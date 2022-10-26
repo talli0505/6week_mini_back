@@ -4,6 +4,8 @@ const router = express.Router();
 const UsersController = require("../controllers/users");
 const usersController = new UsersController();
 
+const middleware = require('../middlewares/auth-middlewares')
+
 // 회원가입
 router.post("/", usersController.createUserAccount);
 
