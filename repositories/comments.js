@@ -1,4 +1,4 @@
-const { Comments } = require("../models");
+const { Comments, User } = require("../models");
 const { Sequelize } = require("../models");
 const { Op } = Sequelize;
 
@@ -11,7 +11,11 @@ class Commentsrepository {
       const findecomments = await Comments.findOne({
         where: { userId: createcomment.userId },
       });
-      return findecomments;
+      const findeusers = await User.findOne({
+        where: { userId: createcomment.userId },
+      });
+
+      return { create: findecomments, nickname: findeusers.nickname };
     } catch (error) {
       return `${error.name}=${error.errorMessage}`;
     }
