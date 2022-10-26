@@ -7,7 +7,6 @@ const commentSchema = Joi.object({
 });
 
 class Commentscontroller {
-
   // 인스턴스 생성
   commentsservice = new Comments();
 
