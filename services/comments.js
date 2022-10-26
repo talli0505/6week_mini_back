@@ -25,7 +25,7 @@ class Commentsservice {
         comment,
         userId
       );
-      return createcomment;
+      return {nickname : createcomment};
     } catch (error) {
       return error.name + "=" + error.errorMessage;
     }
