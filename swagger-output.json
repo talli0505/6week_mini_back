@@ -314,7 +314,7 @@
                 "password": {
                   "example": "패뜨워드"
                 },
-                "confirm": {
+                "confirmPassword": {
                   "example": "패뜨워드 확인~"
                 }
               }
