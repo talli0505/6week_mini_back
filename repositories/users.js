@@ -6,7 +6,7 @@ class UsersRepository {
   constructor() {
     this.Users = User;
   }
-
+  
   // 유저 정보 조회 by 이메일과 닉네임을 위한 함수
   findUserAccount = async (email, nickname) => {
 
@@ -33,7 +33,7 @@ class UsersRepository {
 
   // 로그인을 위한 함수
   login = async (email, password) => {
-
+    
     // findOne으로 email, password가 있는지 확인
     const loginData = await this.Users.findOne({ where: { email, password } });
     return loginData;

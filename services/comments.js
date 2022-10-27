@@ -11,7 +11,7 @@ class Commentsservice {
   commentrepository = new commentsrepository();
 
   // 댓글을 생성하는 함수
-  createComment = async (postId, comment, userId) => {
+  createComment = async (postId, comment, userId, nickname) => {
     try {
       // 댓글형태가 맞는지 validate 확인
       const resultSchema = commentSchema.validate({ comment: comment });
@@ -23,7 +23,8 @@ class Commentsservice {
       const createcomment = await this.commentrepository.createComment(
         postId,
         comment,
-        userId
+        userId,
+        nickname
       );
       return createcomment;
     } catch (error) {
